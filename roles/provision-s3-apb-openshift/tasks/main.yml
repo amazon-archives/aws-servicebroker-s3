@@ -1,0 +1,25 @@
+- name: Launch S3
+  cloudformation:
+   aws_access_key: "{{ aws_access_key }}"
+   aws_secret_key: "{{ aws_secret_key }}"
+   stack_name: "apb-s3-{{ stack_identifier }}"
+   state: "present"
+   region: "{{ region }}"
+   disable_rollback: false
+   template: "{{ role_path }}/files/S3Bucket.yml"
+   template_parameters:
+     ApplicationName: "{{ ApplicationName }}"
+     BucketName: "{{ BucketName }}"
+     LoggingPrefix: "{{ LoggingPrefix }}"
+     EnableGacierLifeCycle: "{{ EnableGlacierLifeCycle }}"
+     GacierLifeCycleTransitionInDays: "{{ GlacierLifeCycleTransitionInDays }}"
+     EnableVersioning: "{{ EnableVersioning }}"
+     LifeCyclePrefix: "{{ LifeCyclePrefix }}"
+     BucketAccessControl: "{{ BucketAccessControl }}"
+     
+   tags:
+     Stack: "ansible-cloudformation"
+     Application: "ansible-S3"
+     Description: "{{ ansible_user_id }} sns {{ ApplicationName }}"
+     
+  register: S3

@@ -1,0 +1,89 @@
+name: S3-apb
+image: ansibleplaybookbundle/S3-apb
+description: 'S3 bucket'
+tags:
+  - amazon
+  - S3
+bindable: true
+async: optional
+plans:
+  - name: default
+    description: 'S3 bucket'
+    free: false
+    parameters:
+      - name: stack_identifier
+        required: true
+        title: Unique Stack Identifier
+        description: 'Unique identifier to be included in the CloudFormation Stack Name to prevent naming collisions. Must only contain alphanumeric characters and hyphens. (e.g. "sample-S3-stack", "production-S3-09-2017")'
+        type: string
+      - name: aws_access_key
+        required: true
+        title: AWS Access Key
+        description: 'AWS Access Key to authenticate to AWS with.'
+        type: string
+      - name: aws_secret_key
+        required: true
+        title: AWS Secret Key
+        description: 'AWS Secret Key to authenticate to AWS with.'
+        type: string
+      - name: region
+        required: true
+        title: AWS Region
+        description: 'AWS Region to create the bucket in.'
+        type: string
+        default: "us-west-2"
+      - name: ApplicationName
+        required: true
+        title: Application Name
+        description: 'This will be set as the value for the \"APPLICATION_NAME\" tag on all supported resources'
+        type: string
+      - name: BucketName
+        required: true
+        title: Bucket Name 
+        description: 'Must contain only lowercase letters, numbers, periods (.), and hyphens (-),Cannot end in numbers'
+        type: string
+        default: "apps3bucket"
+      - name: LoggingPrefix
+        required: true
+        title: Logging Prefix
+        description: 'Must contain only lowercase letters, numbers, periods (.), and hyphens (-),Cannot end in numbers'
+        type: string
+        default: "Log"
+      - name: GlacierLifeCycleTransitionInDays
+        required: true
+        title: Glacier Life Cycle Tranition In Days
+        description: 'Define how many days objects should exist before being moved to Glacier'
+        type: string
+        default: "1"
+      - name: EnableGlacierLifeCycle
+        required: true
+        title: Enable Glacier Life Cycle
+        description: 'enable archiving to Glacier Storage true or false default is false'
+        type: string
+        default: "false"
+      - name: EnableVersioning
+        required: true
+        title: Enable Versioning
+        description: 'enable versioning default is true'
+        type: string
+        default: "true"
+      - name: LifeCyclePrefix
+        required: true
+        title: Life Cycle Prefix
+        description: 'Must contain only lowercase letters, numbers, periods (.), and hyphens (-),Cannot end in numbers'
+        type: string
+        default: "Archive"
+      - name: BucketAccessControl
+        required: true
+        title: Bucket Access Control
+        description: 'define if the bucket can be accessed from public or private locations'
+        type: string
+        default: "Private"
+        
+         
+    metadata:
+        displayName: "Amazon S3"
+        longDescription: "Amazon Simple Storage Service (Amazon S3) is storage for the Internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web. You can accomplish these tasks using the simple and intuitive web interface of the AWS Management Console"
+        imageUrl: "https://d0.awsstatic.com/cloud-storage/Deck_Databases.png"
+        documentationUrl: https://aws.amazon.com/documentation/s3/
+        cost: $0.00

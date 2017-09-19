@@ -1,0 +1,11 @@
+#############################################################################
+# Deprovision S3 Bucket
+#############################################################################
+
+- name: Remove S3 Bucket
+  cloudformation:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    stack_name: "apb-S3-{{ stack_identifier }}"
+    state: "absent"
+    region: "{{ region }}"

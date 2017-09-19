@@ -1,0 +1,9 @@
+- name: S3 deprovision
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  roles:
+  - role: ansible.kubernetes-modules
+    install_python_requirements: no
+  - role: deprovision-S3-apb-openshift
+    playbook_debug: false
