@@ -8,4 +8,4 @@
 
   - role: ansibleplaybookbundle.asb-modules
 
-  - role: provision-S3-apb-openshift
+  - role: provision-s3-apb-openshift

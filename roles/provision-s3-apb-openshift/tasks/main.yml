@@ -11,15 +11,24 @@
      ApplicationName: "{{ ApplicationName }}"
      BucketName: "{{ BucketName }}"
      LoggingPrefix: "{{ LoggingPrefix }}"
-     EnableGacierLifeCycle: "{{ EnableGlacierLifeCycle }}"
-     GacierLifeCycleTransitionInDays: "{{ GlacierLifeCycleTransitionInDays }}"
+     EnableGlacierLifeCycle: "{{ EnableGlacierLifeCycle }}"
+     GlacierLifeCycleTransitionInDays: "{{ GlacierLifeCycleTransitionInDays }}"
      EnableVersioning: "{{ EnableVersioning }}"
      LifeCyclePrefix: "{{ LifeCyclePrefix }}"
      BucketAccessControl: "{{ BucketAccessControl }}"
-     
    tags:
      Stack: "ansible-cloudformation"
      Application: "ansible-S3"
      Description: "{{ ansible_user_id }} sns {{ ApplicationName }}"
-     
-  register: S3
+  register: s3
+
+- name: Check for CloudFormation error logs
+  debug:
+    var: s3.log
+
+- name: Encode bind credentials
+  asb_encode_binding:
+    fields:
+      bucket_arn: "{{ s3.stack_outputs.BucketArn }}"
+      bucket_name: "{{ s3.stack_outputs.BucketName }}"
+  when: s3.log | length < 1

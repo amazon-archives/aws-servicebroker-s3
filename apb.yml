@@ -1,5 +1,5 @@
-name: S3-apb
-image: ansibleplaybookbundle/S3-apb
+name: s3-apb
+image: ansibleplaybookbundle/s3-apb
 description: 'S3 bucket'
 tags:
   - amazon
@@ -39,10 +39,9 @@ plans:
         type: string
       - name: BucketName
         required: true
-        title: Bucket Name 
+        title: Bucket Name
         description: 'Must contain only lowercase letters, numbers, periods (.), and hyphens (-),Cannot end in numbers'
         type: string
-        default: "apps3bucket"
       - name: LoggingPrefix
         required: true
         title: Logging Prefix
@@ -79,8 +78,8 @@ plans:
         description: 'define if the bucket can be accessed from public or private locations'
         type: string
         default: "Private"
-        
-         
+
+
     metadata:
         displayName: "Amazon S3"
         longDescription: "Amazon Simple Storage Service (Amazon S3) is storage for the Internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web. You can accomplish these tasks using the simple and intuitive web interface of the AWS Management Console"
