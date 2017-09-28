@@ -30,7 +30,22 @@ plans:
         required: true
         title: AWS Region
         description: 'AWS Region to create the bucket in.'
-        type: string
+        type: enum
+        enum:
+          - ap-northeast-1
+          - ap-northeast-2
+          - ap-south-1
+          - ap-southeast-1
+          - ap-southeast-2
+          - ca-central-1
+          - eu-central-1
+          - eu-west-1
+          - eu-west-2
+          - sa-east-1
+          - us-east-1
+          - us-east-2
+          - us-west-1
+          - us-west-2
         default: "us-west-2"
       - name: ApplicationName
         required: true
@@ -58,13 +73,15 @@ plans:
         required: true
         title: Enable Glacier Life Cycle
         description: 'enable archiving to Glacier Storage true or false default is false'
-        type: string
+        type: enum
+        enum: ["true", "false"]
         default: "false"
       - name: EnableVersioning
         required: true
         title: Enable Versioning
         description: 'enable versioning default is true'
-        type: string
+        type: enum
+        enum: ["true", "false"]
         default: "true"
       - name: LifeCyclePrefix
         required: true
@@ -76,13 +93,14 @@ plans:
         required: true
         title: Bucket Access Control
         description: 'define if the bucket can be accessed from public or private locations'
-        type: string
+        type: enum
+        enum: ["private", "public"]
         default: "Private"
 
 
     metadata:
         displayName: "Amazon S3"
         longDescription: "Amazon Simple Storage Service (Amazon S3) is storage for the Internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web. You can accomplish these tasks using the simple and intuitive web interface of the AWS Management Console"
-        imageUrl: "https://d0.awsstatic.com/cloud-storage/Deck_Databases.png"
+        imageUrl: "https://s3.amazonaws.com/thp-aws-icons-dev/Storage_AmazonS3_LARGE.png"
         documentationUrl: https://aws.amazon.com/documentation/s3/
         cost: $0.00
