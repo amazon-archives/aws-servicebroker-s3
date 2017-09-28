@@ -19,7 +19,7 @@
    tags:
      Stack: "ansible-cloudformation"
      Application: "ansible-S3"
-     Description: "{{ ansible_user_id }} sns {{ ApplicationName }}"
+     Description: "{{ ansible_user_id }} S3 {{ ApplicationName }}"
   register: s3
 
 - name: Check for CloudFormation error logs
