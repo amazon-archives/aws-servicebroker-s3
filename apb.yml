@@ -1,14 +1,19 @@
 name: s3-apb
 image: ansibleplaybookbundle/s3-apb
-description: 'S3 bucket'
+description: 'S3 Bucket'
 tags:
   - amazon
   - S3
 bindable: true
 async: optional
+metadata:
+  displayName: "Amazon S3"
+  longDescription: "Amazon Simple Storage Service (Amazon S3) is storage for the Internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web. You can accomplish these tasks using the simple and intuitive web interface of the AWS Management Console"
+  imageUrl: "https://s3.amazonaws.com/thp-aws-icons-dev/Storage_AmazonS3_LARGE.png"
+  documentationUrl: https://aws.amazon.com/documentation/s3/
 plans:
   - name: default
-    description: 'S3 bucket'
+    description: 'S3 Bucket'
     free: false
     parameters:
       - name: stack_identifier
@@ -73,16 +78,14 @@ plans:
         required: true
         title: Enable Glacier Life Cycle
         description: 'enable archiving to Glacier Storage true or false default is false'
-        type: enum
-        enum: ["true", "false"]
-        default: "false"
+        type: boolean
+        default: false
       - name: EnableVersioning
         required: true
         title: Enable Versioning
         description: 'enable versioning default is true'
-        type: enum
-        enum: ["true", "false"]
-        default: "true"
+        type: boolean
+        default: true
       - name: LifeCyclePrefix
         required: true
         title: Life Cycle Prefix
@@ -94,13 +97,17 @@ plans:
         title: Bucket Access Control
         description: 'define if the bucket can be accessed from public or private locations'
         type: enum
-        enum: ["private", "public"]
+        enum:
+          - Private
+          - PublicRead
+          - PublicReadWrite
+          - AuthenticatedRead
+          - LogDeliveryWrite
+          - BucketOwnerRead
+          - BucketOwnerFullControl
+          - AwsExecRead
         default: "Private"
-
-
     metadata:
-        displayName: "Amazon S3"
-        longDescription: "Amazon Simple Storage Service (Amazon S3) is storage for the Internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web. You can accomplish these tasks using the simple and intuitive web interface of the AWS Management Console"
-        imageUrl: "https://s3.amazonaws.com/thp-aws-icons-dev/Storage_AmazonS3_LARGE.png"
-        documentationUrl: https://aws.amazon.com/documentation/s3/
-        cost: $0.00
+      displayName: "Amazon S3"
+      longDescription: "Amazon Simple Storage Service (Amazon S3) is storage for the Internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web. You can accomplish these tasks using the simple and intuitive web interface of the AWS Management Console"
+      cost: $0.00

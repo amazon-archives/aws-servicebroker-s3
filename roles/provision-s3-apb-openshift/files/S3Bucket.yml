@@ -22,16 +22,16 @@ Parameters:
     Description: enable or discable S3 logging
     Type: String
     AllowedValues:
-      - 'true'
-      - 'false'
-    Default: 'true'
+      - 'True'
+      - 'False'
+    Default: 'True'
   EnableGlacierLifeCycle:
     Description: enable archiving to Glacier Storage
     Type: String
     AllowedValues:
-      - 'true'
-      - 'false'
-    Default: 'false'
+      - 'True'
+      - 'False'
+    Default: 'False'
   GlacierLifeCycleTransitionInDays:
     Description: Define how many days objects should exist before being moved to Glacier
     Type: String
@@ -40,9 +40,9 @@ Parameters:
     Description: enable versioning
     Type: String
     AllowedValues:
-      - 'true'
-      - 'false'
-    Default: 'false'
+      - 'True'
+      - 'False'
+    Default: 'False'
   LifeCyclePrefix:
     Description: >-
       Must contain only lowercase letters, numbers, periods (.), and hyphens
@@ -54,19 +54,25 @@ Parameters:
     Type: String
     AllowedValues:
       - Private
-      - Public
-    Default: Private
+      - PublicRead
+      - PublicReadWrite
+      - AuthenticatedRead
+      - LogDeliveryWrite
+      - BucketOwnerRead
+      - BucketOwnerFullControl
+      - AwsExecRead
+    Default: "Private"
 Mappings: {}
 Conditions:
   UseLogging: !Equals 
     - !Ref EnableLogging
-    - 'true'
+    - 'True'
   UseGlacierLifeCycle: !Equals 
     - !Ref EnableGlacierLifeCycle
-    - 'true'
+    - 'True'
   UseVersioning: !Equals 
     - !Ref EnableVersioning
-    - 'true'
+    - 'True'
 Resources:
   S3bucket:
     Type: 'AWS::S3::Bucket'
