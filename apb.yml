@@ -1,5 +1,5 @@
+version: 1.0
 name: s3-apb
-image: ansibleplaybookbundle/s3-apb
 description: 'S3 Bucket'
 tags:
   - amazon
