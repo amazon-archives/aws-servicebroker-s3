@@ -1,14 +1,21 @@
+- name: include plan vars
+  include_vars:
+    file: "{{ _apb_plan_id }}.yml"
+- name: generate b62 hash
+  shell: "16to62 {{ params_hash }}"
+  register: command_output
+- name: set fact
+  set_fact:
+    stack_suffix: "{{ command_output.stdout }}"
 - name: Launch S3
   cloudformation:
-   aws_access_key: "{{ aws_access_key }}"
-   aws_secret_key: "{{ aws_secret_key }}"
-   stack_name: "apb-s3-{{ stack_identifier }}"
+   stack_name: "apb-s3-{{ stack_suffix }}"
    state: "present"
    region: "{{ region }}"
    disable_rollback: false
    template: "{{ role_path }}/files/S3Bucket.yml"
    template_parameters:
-     ApplicationName: "{{ ApplicationName }}"
+     ApplicationName: "{{ application_name }}"
      BucketName: "{{ BucketName }}"
      LoggingPrefix: "{{ LoggingPrefix }}"
      EnableGlacierLifeCycle: "{{ EnableGlacierLifeCycle | string }}"
@@ -19,14 +26,39 @@
    tags:
      Stack: "ansible-cloudformation"
      Application: "ansible-S3"
-     Description: "{{ ansible_user_id }} S3 {{ ApplicationName }}"
+     Description: "{{ ansible_user_id }} S3 {{ application_name }}"
   register: s3
 - name: Check for CloudFormation error logs
   debug:
     var: s3.log
+- name: Create IAM user
+  iam:
+    iam_type: user
+    name: "apb-s3-iam-{{ stack_suffix }}"
+    state: present
+    access_key_state: create
+  register: iam_output
+- name: Generate IAM policy temporary json file
+  template:
+    src: "{{ role_path }}/files/S3AccessPolicy.json.j2"
+    dest: "/tmp/{{ stack_suffix }}.json"
+- name: Attach IAM policy
+  iam_policy:
+    iam_type: user
+    iam_name: "apb-s3-iam-{{ stack_suffix }}"
+    policy_name: "S3-APB-{{ stack_suffix }}"
+    state: present
+    policy_document: "/tmp/{{ stack_suffix }}.json"
+- name: Remove IAM policy temporary json file
+  file:
+    state: absent
+    path: /tmp/{{ stack_suffix }}.json
 - name: Encode bind credentials
   asb_encode_binding:
     fields:
-      bucket_arn: "{{ s3.stack_outputs.BucketArn }}"
-      bucket_name: "{{ s3.stack_outputs.BucketName }}"
+      S3_BUCKET_ARN: "{{ s3.stack_outputs.BucketArn }}"
+      S3_BUCKET_NAME: "{{ s3.stack_outputs.BucketName }}"
+      S3_BUCKET_REGION: "{{ region }}"
+      S3_BUCKET_AWS_ACCESS_KEY_ID: "{{ iam_output.user_meta.access_keys[0].access_key_id }}"
+      S3_BUCKET_AWS_SECRET_ACCESS_KEY: "{{ iam_output.user_meta.access_keys[0].secret_access_key }}"
   when: s3.log | length < 1
