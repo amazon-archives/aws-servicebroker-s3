@@ -21,6 +21,13 @@
             ],
             "Effect": "Allow",
             "Resource": "{{ s3.stack_outputs.BucketArn }}/*"
+        },
+        {
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "{{ s3.stack_outputs.BucketArn }}",
+            "Effect": "Allow"
         }
     ]
 }
