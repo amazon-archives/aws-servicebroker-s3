@@ -14,6 +14,7 @@
    region: "{{ region }}"
    disable_rollback: false
    template: "{{ role_path }}/files/S3Bucket.yml"
+   role_arn: "{{ aws_cloudformation_role_arn }}"
    template_parameters:
      ApplicationName: "{{ application_name }}"
      BucketName: "{{ BucketName }}"
@@ -24,9 +25,7 @@
      LifeCyclePrefix: "{{ LifeCyclePrefix }}"
      BucketAccessControl: "{{ BucketAccessControl }}"
    tags:
-     Stack: "ansible-cloudformation"
-     Application: "ansible-S3"
-     Description: "{{ ansible_user_id }} S3 {{ application_name }}"
+     ServiceBrokerId: "{{ application_name }}"
   register: s3
 - name: Check for CloudFormation error logs
   debug:
