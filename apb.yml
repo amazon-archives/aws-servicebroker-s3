@@ -35,6 +35,7 @@ plans:
         title: AWS Secret Key
         description: 'AWS Secret Key to authenticate to AWS with.'
         type: string
+        display_type: password
         display_group: AWS Account Information
       - name: aws_cloudformation_role_arn
         required: true
@@ -146,6 +147,7 @@ plans:
         title: AWS Secret Key
         description: 'AWS Secret Key to authenticate to AWS with.'
         type: string
+        display_type: password
         display_group: AWS Account Information
       - name: aws_cloudformation_role_arn
         required: true
