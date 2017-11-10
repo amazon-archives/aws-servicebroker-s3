@@ -1,0 +1,9 @@
+global:
+  parameters: {}
+  regions:
+    - us-east-1
+
+plans:
+  s3-custom:
+    parameters: {}
+    sample_app: s3-sample-app-apb
