@@ -4,6 +4,6 @@ global:
     - us-east-1
 
 plans:
-  s3-custom:
+  s3-prod:
     parameters: {}
     sample_app: s3-sample-app-apb
