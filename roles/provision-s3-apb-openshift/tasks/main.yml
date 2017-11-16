@@ -58,9 +58,9 @@
 - name: Encode bind credentials
   asb_encode_binding:
     fields:
-      S3_BUCKET_ARN: "{{ s3.stack_outputs.BucketArn }}"
-      S3_BUCKET_NAME: "{{ s3.stack_outputs.BucketName }}"
-      S3_BUCKET_REGION: "{{ region }}"
-      S3_BUCKET_AWS_ACCESS_KEY_ID: "{{ iam_output.user_meta.access_keys[0].access_key_id }}"
-      S3_BUCKET_AWS_SECRET_ACCESS_KEY: "{{ iam_output.user_meta.access_keys[0].secret_access_key }}"
+      S3_BUCKET_ARN:            "{{ s3.stack_outputs.BucketArn }}"
+      S3_BUCKET_NAME:           "{{ s3.stack_outputs.BucketName }}"
+      S3_REGION:                "{{ region }}"
+      S3_AWS_ACCESS_KEY_ID:     "{{ iam_output.user_meta.access_keys[0].access_key_id }}"
+      S3_AWS_SECRET_ACCESS_KEY: "{{ iam_output.user_meta.access_keys[0].secret_access_key }}"
   when: s3.log | length < 1
