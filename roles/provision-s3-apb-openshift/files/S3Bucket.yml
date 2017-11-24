@@ -104,6 +104,7 @@ Resources:
   LoggingBucket:
     Condition: UseLogging
     Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Retain
     Properties:
       AccessControl: LogDeliveryWrite
       BucketName: !Join 
