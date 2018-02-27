@@ -12,14 +12,3 @@
     stack_name: "apb-s3-{{ stack_suffix }}"
     state: "absent"
     region: "{{ region }}"
-- name: Remove IAM policy
-  iam_policy:
-    iam_type: user
-    iam_name: "apb-s3-iam-{{ stack_suffix }}"
-    policy_name: "S3-APB-{{ stack_suffix }}"
-    state: absent
-- name: Remove IAM user
-  iam:
-    iam_type: user
-    name: "apb-s3-iam-{{ stack_suffix }}"
-    state: absent

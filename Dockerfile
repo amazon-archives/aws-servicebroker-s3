@@ -7,6 +7,8 @@ COPY roles /opt/ansible/roles
 COPY playbooks /opt/apb/actions
 COPY bin/16to62 /usr/bin/16to62
 RUN chmod +x /usr/bin/16to62
+COPY bin/ssmfetch /usr/bin/ssmfetch
+RUN chmod +x /usr/bin/ssmfetch
 
 LABEL "com.redhat.apb.spec"=\
 
